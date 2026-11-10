@@ -1,20 +1,17 @@
-# Brand Assets
+# Armament SCA — approved visual assets
 
-Copy these from Idea Forge II (`client/public/`):
+**Committed and available:**
 
-**Required for hero + sidebar:**
-- `communities/a10.webp` → `brand/a10.webp` (A-10 Thunderbolt II hero background)
-- `brand/usaf-horizontal-white.png` → `brand/usaf-horizontal-white.png` (sidebar lockup)
+- `gau8.webp` — user-supplied official USAF GAU-8/A photo, optimized to 240px for the compact hero card. Photo: Senior Airman Joshua Strang, U.S. Air Force. Source: https://www.af.mil/News/Photos/igphoto/2000687343/ (public domain / cleared for release).
+- `rso-official.webp` — user-supplied official Rapid Sustainment Office logo, resized with transparent background preserved for the bottom-left sidebar, no added words.
 
-**Optional:**
-- `brand/usaf-lockup.png` → `brand/usaf-lockup.png`
-- `brand/hero-art.jpg` (alternative full-bleed hero)
+**Still required before full visual parity:**
 
-**Weapon system cards** (referenced by App.tsx):
-- `brand/gau8.webp`
-- `brand/gau9.webp`
-- `brand/smallarms.webp`
+- `a10.webp` — approved A-10 photographic hero background. Do not substitute a made-up aircraft or screenshot of the original concept.
+- `m61a1.webp` — approved M61A1 Vulcan 20mm image for the second card.
+- `smallarms.webp` — approved small arms / light weapons image for the third card.
+- `usaf-horizontal-white.png` — approved USAF navigation logo.
 
-All community photos in Idea Forge are U.S. Government works (public domain, DVIDS). See Idea Forge `client/public/communities/CREDITS.md` for attribution.
+The image references should be self-contained in this directory for Databricks environments without external image access. This is a public repository: only place assets here if cleared for public release.
 
-Once the files are in place, the sidebar lockup and hero background appear automatically. The three weapon-system cards under the hero will show their images when those files exist (they currently fall back to a solid background).
+Source reference: `docs/concept.png`. The approved UI concept governs photo placement, image crop, card labels, and typography.
