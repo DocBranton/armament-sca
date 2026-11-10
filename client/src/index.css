@@ -26,3 +26,11 @@
 .request-details textarea{width:100%;border-radius:8px;background:#101213;color:#fff2d5;border:1px solid #806234;padding:9px;resize:vertical}
 .request-lookup:disabled,.request-submit:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:800px){.request-deliverable-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Widescreen visual contract: scale the 1989px concept composition into
+   ultrawide desktop viewports instead of leaving half the display unused.
+   CSS zoom scales text, controls and the sidebar as one composition. */
+@media (min-width: 2700px) and (min-height: 1100px) {
+  html { zoom: 1.68; }
+}
