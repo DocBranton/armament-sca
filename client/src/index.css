@@ -43,3 +43,10 @@
 /* Official AFLCMC/EBU Weapons Superiority Division crest: lock to title, preserve compact banner. */
 .organization .division-emblem{width:48px;height:48px;flex:0 0 48px;object-fit:contain;display:block}
 .organization{gap:11px}
+
+/* Approved silver USAF artwork on a white raster background.
+   Invert + screen blends out only the white background at display time;
+   the committed source image itself remains unchanged. */
+.af-logo img[src="/brand/usaf-official.webp"]{width:57px;max-width:57px;height:57px;max-height:57px;object-fit:contain;filter:grayscale(1) invert(1) brightness(2.8);mix-blend-mode:screen}
+.af-logo{gap:0;overflow:hidden}
+.af-logo span{font-size:8px;line-height:1}
