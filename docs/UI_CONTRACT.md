@@ -48,3 +48,20 @@ The gold hero CTA reads **Request Assistance**, matching the Unified Mission Wor
 
 ## Build/deployment readiness gate (2026-11-10)
 The branch now runs the Vite preview server via `npm run start` (Databricks App port default 8000), rather than the nonexistent `dist/server.js`. A GitHub Actions build-validation workflow was added under `.github/workflows/ui-contract-build.yml` to run `npm run build` and check the output bundle. No successful CI execution has yet been observed. The `databricks.yml` currently references `resources/*.yml`, but the repository has no `resources` directory; the Databricks bundle deployment configuration must be completed and checked before any deployment. The mock-only Request Assistance form does not submit requests to UMW. The approved images and logo have been provided in chat but are not yet present as repository files.
+
+## Mandatory AppKit foundation acceptance gate
+
+**Status: NOT VERIFIED / BLOCKS MERGE AND DEPLOYMENT.** Merely hosting a React/Vite frontend in Databricks Apps, or mentioning AppKit in the README, is not evidence of AppKit integration.
+
+Before marking the UI restoration PR ready for review or deploying:
+
+- [ ] Identify the **actual UMW AppKit source, package, version, ownership, and license/access boundary**; document the exact reuse mechanism and relevant commit/package version.
+- [ ] Confirm which AppKit capabilities Armament SCA actually consumes: application shell/nav and layout primitives; identity/session; authorized API client; model-serving/Wingman integration; audit/logging/error handling; and approved design tokens. Explicitly record supported and missing pieces; do not assume the library provides every capability.
+- [ ] Refactor the dashboard to **use** approved shared AppKit components and services where appropriate while preserving `docs/concept.png` as the visual contract. Avoid a second independently maintained UMW shell or Request Assistance workflow.
+- [ ] Align **Request Assistance** with UMW's reusable component and real request/part-lookup contract if accessible. Until wired to an authoritative service, present the current dialog as a demo and never claim a request was submitted.
+- [ ] Document the environment-specific Databricks Apps/WDP integration, resource binding, authentication and role scopes, and test the build and deployment configuration.
+- [ ] Complete build/typecheck, functional tests, and a **3440×1440 side-by-side screenshot acceptance review**. Obtain explicit approval prior to merge and deployment.
+
+**Architecture target:** Armament domain experience → shared AppKit application foundation → Databricks/WDP platform services. This gate is architectural and behavioral; it must not authorize unrequested visual redesign.
+
+**Non-goal:** Declaring AppKit implemented by adding a folder, branding, documentation, or importing a name without real runtime consumption.
