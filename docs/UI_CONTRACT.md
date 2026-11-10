@@ -65,3 +65,17 @@ Before marking the UI restoration PR ready for review or deploying:
 **Architecture target:** Armament domain experience → shared AppKit application foundation → Databricks/WDP platform services. This gate is architectural and behavioral; it must not authorize unrequested visual redesign.
 
 **Non-goal:** Declaring AppKit implemented by adding a folder, branding, documentation, or importing a name without real runtime consumption.
+
+## AppKit implementation milestone (2026-11-10)
+
+Verified UMW reference: private `DocBranton/umw` repository, `package.json`, `server/server.ts`, `client/vite.config.ts`, `tsdown.server.config.ts`, and `databricks.yml` on `main`. UMW uses `@databricks/appkit@0.82.0` and `@databricks/appkit-ui@0.82.0`; its server runtime initializes with `createApp({ plugins: [server()] })` and conditionally supports Lakebase.
+
+Armament SCA now implements the **first runtime foundation slice**:
+- Uses `@databricks/appkit@0.82.0`, AppKit `createApp` with `server()`, and AppKit tsdown build configuration.
+- Builds separate server and client artifacts, using the UMW directory convention (`dist/server.js` and `client/dist/index.html`).
+- Uses a Databricks Asset Bundle `resources.apps.app` definition matching UMW's structure.
+- Adds a CI build gate covering both outputs.
+
+**NOT YET VERIFIED:** Successful npm build/CI execution, Databricks deployment, compatible AppKit UI component reuse, identity/capability services, any authoritative backend request or parts lookup, and screenshot parity. The local execution environment cannot reach GitHub/npm to perform dependency installation. Treat this as a code-level implementation, not a finished or tested AppKit migration.
+
+**Important:** AppKit server runtime is now integrated, but `@databricks/appkit-ui` package presence alone does *not* prove its components have been adopted. UMW's Request Assistance is currently implemented inline in `client/src/components/workbench.tsx`, not as a separately exported reusable package. An extraction/shared module is a subsequent task and should be independently validated to avoid breaking UMW or drifting the Armament visual contract.
