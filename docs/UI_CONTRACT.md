@@ -112,3 +112,11 @@ Remaining gates: upload exact official brand/photos, compare screenshots to `doc
 - The user-supplied Weapons Superiority Division emblem is installed as `client/public/brand/weapons-superiority-division.webp` and rendered alongside `AFLCMC / EBUW` and `Weapons Superiority Division` in the mission-identity banner.
 - The design contract is **keep the official artwork intact**, maintain aspect ratio, 48×48 CSS pixel footprint before ultrawide zoom, no recoloring or additional badges. This replaces the generic crosshair in the organization identity block only; navigation, hero, workflow, controls, and results hierarchy remain unchanged.
 - CI smoke test checks the crest loads successfully. Hero imagery is still incomplete pending approved A-10, M61A1 and Small Arms photographs; success of the crest check is not full visual acceptance.
+
+## Official image sourcing check (2026-11-10)
+
+- New candidate catalog: `docs/official-image-sources.json` documents USAF/DVIDS photo-page URLs and photographer credits for A-10, M61A1 and Small Arms.
+- The separate GitHub Actions workflow `Stage official imagery for review` attempts to stage public-domain candidates into a downloadable artifact without auto-committing images or changing the approved UI.
+- **Run [42862682446](https://github.com/DocBranton/armament-sca/actions/runs/42862682446) did not stage any photo:** all three source endpoints returned **HTTP 403 Forbidden** from the hosted runner. This is an access restriction, not an image-clearance decision. The diagnostic `official-photo-candidates` artifact records the failures.
+- The user-owned private `DocBranton/idea-forge-II` repository already has `client/public/communities/a10.webp` with documented public-domain DVIDS origin (VIRIN 250715-F-AD704-1111), as well as `client/public/communities/CREDITS.md`. It is suitable for *review as a possible source*, but it has not been copied into this public repository and the private-repository boundary must be respected.
+- No unofficial aircraft or generic weapon imagery was substituted. The outstanding A-10, M61A1, Small Arms and USAF nav assets remain a visual acceptance **blocker**.
