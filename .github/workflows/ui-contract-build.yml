@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'client/**'
+      - 'scripts/**'
       - 'package.json'
       - 'tsconfig.json'
       - 'vite.config.ts'
@@ -28,3 +29,17 @@ jobs:
         run: npm run build
       - name: Confirm production bundle
         run: test -f client/dist/index.html && test -d client/dist/assets && test -f dist/server.js
+      - name: Install browser for visual smoke test
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Verify concept layout and Request Assistance
+        run: node scripts/visual-smoke.mjs
+      - name: Save widescreen screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: armament-ui-acceptance-screenshots
+          path: artifacts/ui/
+          if-no-files-found: ignore
+
