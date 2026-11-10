@@ -39,3 +39,7 @@
 /* Approved RSO identity is artwork-only: no extra "Powered by" treatment. */
 .rso-brand{padding:8px 14px 10px;margin: auto 0 12px;min-height:49px;display:flex;align-items:flex-end}
 .rso-brand img{width:100%;max-width:110px;height:auto;object-fit:contain}
+
+/* Official AFLCMC/EBU Weapons Superiority Division crest: lock to title, preserve compact banner. */
+.organization .division-emblem{width:48px;height:48px;flex:0 0 48px;object-fit:contain;display:block}
+.organization{gap:11px}
