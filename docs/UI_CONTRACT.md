@@ -132,3 +132,6 @@ Remaining gates: upload exact official brand/photos, compare screenshots to `doc
 ## Third hero card: Universal Ammunition Loading (UAL) system
 
 The user chose the uploaded **Universal Ammunition Loading Systems (UAL)** photograph for the third slanted, cyan-edged card, replacing the earlier Small Arms & Light Weapons placeholder. The asset is `client/public/brand/ual.webp`, label `UAL System`, subtitle `Ammunition Loading`. Keep the existing card geometry, no new tile row or Hero redesign. Browser smoke validates the third image and UAL label. Note the supplied source is low resolution; inspect its crop at 3440×1440 and request a higher-resolution approved photo only if needed. Source rights/public-release status has not been independently established.
+
+## Analysis Controls placement adjustment (2026-11-10)
+At the user's request, the **System (Weapon System)** dropdown now appears in the **leftmost column** of the Scoring & Weights control row, followed by **Scoring Method** and **Weight Factors**. The selected system state, options, ranking calculations, toolbar, workflow and table remain unchanged. The 3440×1440 browser smoke includes a left-to-right geometry assertion. This is an approved localized change to the UI contract; no other redesign is authorized.
