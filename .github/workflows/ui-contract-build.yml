@@ -22,6 +22,8 @@ jobs:
           node-version: '22'
       - name: Install
         run: npm install --no-audit --no-fund
+      - name: Request Assistance contract tests
+        run: npm run test:request
       - name: Typecheck and build
         run: npm run build
       - name: Confirm production bundle
