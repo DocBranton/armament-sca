@@ -27,6 +27,10 @@ try {
   assert.equal(await page.locator('.workflow-step').count(),6,'Exactly six workflow stages');
   assert.equal(await page.locator('.table-wrap tbody tr').count(),10,'Ten mock part records appear');
   assert.ok((await page.locator('.hero-cta').innerText()).includes('Request Assistance'));
+  const systemBox = await page.locator('.system-card').boundingBox();
+  const methodBox = await page.locator('.method-card').boundingBox();
+  const factorBox = await page.locator('.factors').boundingBox();
+  assert.ok(systemBox && methodBox && factorBox && systemBox.x < methodBox.x && methodBox.x < factorBox.x, 'Weapon system selection leads the control row at the left');
   const kpi=await page.locator('.kpi-row').boundingBox();
   const hero=await page.locator('.hero').boundingBox();
   const table=await page.locator('.results-panel').boundingBox();
