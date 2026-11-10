@@ -3,6 +3,7 @@ import { Activity, ArrowRight, BarChart3, Bell, Boxes, ChevronDown, ChevronUp, C
 import { GAU8_PARTS, KPIS, type Part } from './lib/data';
 import { WingmanPanel } from './components/Wingman';
 import { Hero } from './components/Hero';
+import { RequestAssistance } from './components/RequestAssistance';
 import { STAGES, type StageId } from './lib/stages';
 
 type WeightKey = 'acq' | 'lead' | 'micap' | 'demand' | 'risk' | 'readiness';
@@ -13,7 +14,7 @@ const FACTORS: {key:WeightKey; title:string; hint:string}[] = [
   {key:'micap',title:'MICAPs',hint:'≥ 5'}, {key:'demand',title:'Demand',hint:'Lower is higher'},
   {key:'risk',title:'Supply Risk',hint:'DMSMS / Obsol.'}, {key:'readiness',title:'Readiness Impact',hint:'Ao / FMC / NMCS'}
 ];
-const SYSTEMS = [{id:'gau8',name:'GAU-8/A (A-10)'},{id:'gau9',name:'GAU-9/A (25mm)'},{id:'smallarms',name:'Small Arms & Light Weapons'}];
+const SYSTEMS = [{id:'gau8',name:'GAU-8/A (A-10)'},{id:'m61a1',name:'M61A1 Vulcan (20mm)'},{id:'smallarms',name:'Small Arms & Light Weapons'}];
 const NAV = [
   {group:'MISSION',items:[['Home',Home],['Armament',Crosshair],['Portfolio',Layers],['AM Candidates',Boxes],['Projects',FolderKanban],['Analysis',BarChart3],['Reports',Activity]]},
   {group:'CAPABILITIES',items:[['Supply Chain',PackageSearch],['Advanced Manufacturing',Factory],['Engineering',Wrench],['Sourcing',Target],['Readiness',Gauge]]},
@@ -42,6 +43,7 @@ export default function App(){
   const [controlsOpen,setControlsOpen]=useState(true);
   const [heroCollapsed,setHeroCollapsed]=useState(false);
   const [wingmanOpen,setWingmanOpen]=useState(false);
+  const [requestOpen,setRequestOpen]=useState(false);
   const [activeStage,setActiveStage]=useState<StageId>('prioritize');
   const [system,setSystem]=useState('gau8');
   const [preset,setPreset]=useState('AM Candidates (Default)');
@@ -87,7 +89,7 @@ export default function App(){
             {Icon:BarChart3,value:'+'+KPIS.readinessImpact+'%',label:'Readiness Impact (Projected)',delta:''}
           ]).map(({Icon,value,label,delta},i)=><div className="kpi" key={label}><Icon size={25}/><div className="kpi-copy"><strong className={i===5?'positive':''}>{value}</strong><span>{label} {delta&&<em>{delta}</em>}</span></div></div>)}
         </div>
-        <Hero collapsed={heroCollapsed} onToggle={()=>setHeroCollapsed(c=>!c)} activeStage={activeStage} onStage={setActiveStage}/>
+        <Hero collapsed={heroCollapsed} onToggle={()=>setHeroCollapsed(c=>!c)} activeStage={activeStage} onStage={setActiveStage} onRequest={()=>setRequestOpen(true)}/>
         <div className="workflow" aria-label="Armament AM workflow">{STAGES.map((s,i)=><button key={s.id} className={'workflow-step '+(s.id===activeStage?'selected':'')} onClick={()=>setActiveStage(s.id)}><span className="workflow-icon">{i===0?<PackageSearch/>:i===1?<Layers/>:i===2?<Crosshair/>:i===3?<Shield/>:i===4?<Factory/>:<Target/>}</span><span><strong>{s.num} {s.title}</strong><small>{s.caption}</small></span></button>)}</div>
         <section className="analysis-panel">
           <div className="panel-heading"><span><SlidersHorizontal size={20}/><b>Analysis Controls</b><small>Adjust weights, filter the population, and update the AM candidate results</small></span><button className="icon-button" onClick={()=>setControlsOpen(v=>!v)} aria-label={controlsOpen?'Collapse controls':'Expand controls'}>{controlsOpen?<ChevronUp/>:<ChevronDown/>}</button></div>
@@ -103,6 +105,7 @@ export default function App(){
         </section>
       </main>
     </div>
+    {requestOpen&&<RequestAssistance onClose={()=>setRequestOpen(false)}/>}
     {wingmanOpen&&<WingmanPanel onClose={()=>setWingmanOpen(false)} context={SYSTEMS.find(s=>s.id===system)?.name+' — Armament Supply Chain & AM Candidate Analysis'}/>}
   </div>
 }
