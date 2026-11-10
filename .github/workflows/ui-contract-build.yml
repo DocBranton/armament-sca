@@ -1,0 +1,28 @@
+name: UI contract build validation
+on:
+  pull_request:
+    paths:
+      - 'client/**'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'vite.config.ts'
+      - '.github/workflows/**'
+  push:
+    branches:
+      - 'ui/concept-contract-restoration'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Typecheck and build
+        run: npm run build
+      - name: Confirm production bundle
+        run: test -f dist/index.html && test -d dist/assets
