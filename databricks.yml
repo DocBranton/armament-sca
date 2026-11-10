@@ -1,0 +1,19 @@
+bundle:
+  name: armament-sca
+
+variables:
+  wingman_endpoint:
+    description: Model Serving chat endpoint for the SI Wingman
+    default: databricks-llama-4-maverick
+  wingman_fallback_endpoint:
+    description: Fallback when the primary SI Wingman endpoint fails
+    default: databricks-meta-llama-3-3-70b-instruct
+
+include:
+  - resources/*.yml
+
+targets:
+  default:
+    default: true
+    workspace:
+      host: https://dbc-045433f3-7964.cloud.databricks.com

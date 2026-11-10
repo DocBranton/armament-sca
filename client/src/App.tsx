@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Sparkles, Search } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { GAU8_PARTS, KPIS, type Part } from './lib/data';
+import { WingmanPanel } from './components/Wingman';
 
 function scoreColor(p: Part['priority']) {
   if (p === 'CRITICAL') return 'critical';
@@ -12,7 +13,6 @@ export default function App() {
   const [weights, setWeights] = useState({ acq: 30, lead: 25, micap: 20, demand: 10, risk: 10, readiness: 5 });
   const [wingmanOpen, setWingmanOpen] = useState(false);
 
-  // Simple re-score demo: higher weight on lead time boosts high-lead-time parts
   const scored = [...GAU8_PARTS].map(p => ({
     ...p,
     score: Math.min(0.99, p.score * (1 + (weights.lead - 25) * 0.002)),
@@ -55,7 +55,7 @@ export default function App() {
 
           <div style={{ marginBottom: 16, background: '#12203a', padding: 12, borderRadius: 8 }}>
             <strong>Scoring & Weights</strong> (Total = 100%)
-            <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 13 }}>
+            <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 13, flexWrap: 'wrap' }}>
               {Object.entries(weights).map(([k, v]) => (
                 <label key={k}>
                   {k}: {v}%
@@ -94,15 +94,7 @@ export default function App() {
             </table>
           </div>
 
-          {wingmanOpen && (
-            <div style={{ position: 'fixed', right: 0, top: 56, bottom: 0, width: 380, background: '#0d1b2e', borderLeft: '1px solid #1a2a44', padding: 16 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <strong>SI Wingman</strong>
-                <button onClick={() => setWingmanOpen(false)}>Close</button>
-              </div>
-              <p style={{ color: 'var(--muted)', fontSize: 13 }}>Domain-aware assistant (stub). Will explain scores, recommend AM paths, and query supply risk using Model Serving — same pattern as Idea Forge II.</p>
-            </div>
-          )}
+          {wingmanOpen && <WingmanPanel onClose={() => setWingmanOpen(false)} context="GAU-8/A (A-10) — Armament Supply Chain & AM Candidates" />}
         </div>
       </div>
     </div>

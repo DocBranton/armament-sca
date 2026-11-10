@@ -4,22 +4,21 @@ Databricks App for Armament Supply Chain & Advanced Manufacturing (AM) Candidate
 
 **Maximize reuse** from [Idea Forge II](https://gitlab.com/drbranton-group/idea-forge-ii):
 - Dark navy ops console shell (sidebar, top bar)
-- SI Wingman drawer and persona system (Gen. John Duselis / AFLCMC)
-- AppKit runtime patterns, `app.yaml`, Databricks bundle structure
-- Component patterns for hero, controls, and data tables
+- SI Wingman drawer, persona system (Gen. John Duselis / AFLCMC), and Model Serving pattern
+- AppKit / Databricks Asset Bundle structure (`databricks.yml`, `app.yaml`)
+- Component and data-table patterns
 
 ## First Slice
 
 - Sidebar navigation matching Global Mission Workbench Armament view
 - KPI strip (Parts in Scope, AM Candidates, Lead Time, Cost Avoidance, etc.)
-- Hero banner with process stages (Detect → Analyze → Prioritize → Assess → Execute → Measure)
 - Interactive scoring controls with live weight sliders
-- AM Candidate Results table with mock GAU-8/A data
-- SI Wingman integration stub (Ask SI Wingman button opens drawer)
+- AM Candidate Results table with mock GAU-8/A data from the concept UI
+- SI Wingman drawer with domain-aware local replies + `/api/wingman` stub (ready for Model Serving)
 
 ## Data
 
-Mock data in `client/src/lib/data.ts` based on the concept screenshot (GAU-8/A A-10 parts). Move to Unity Catalog tables for production.
+Mock data in `client/src/lib/data.ts`. Move to Unity Catalog for production.
 
 ## Run locally
 
@@ -30,11 +29,16 @@ npm run dev
 
 ## Deploy
 
-Databricks Apps via Asset Bundle. See Idea Forge II for the full AppKit + Model Serving pattern for SI Wingman.
+```bash
+databricks bundle deploy
+```
+
+Uses the same workspace host as Idea Forge II. Configure `WINGMAN_ENDPOINT` via app resources for live SI Wingman.
 
 ## Next
 
-- Wire real Unity Catalog queries
-- Full SI Wingman domain prompts (explain scores, recommend AM processes)
-- Export, filters, system selector persistence
-- Brand assets (A-10 hero imagery)
+- Full AppKit server route for `/api/wingman` (copy from Idea Forge)
+- Hero banner + process pipeline stages
+- Unity Catalog queries for real NSN/parts data
+- Brand assets (A-10 imagery)
+- Persist filters / saved views
