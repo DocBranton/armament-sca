@@ -31,6 +31,10 @@ try {
   const hero=await page.locator('.hero').boundingBox();
   const table=await page.locator('.results-panel').boundingBox();
   assert.ok(kpi && hero && table && kpi.y < hero.y && hero.y < table.y,'Contract layout order');
+  const tableBottom = table.y + table.height;
+  assert.ok(tableBottom > 0.78 * 1440, 'At 3440×1440 the page should use most of the available vertical display, not render as tiny controls at the top');
+  assert.ok(await page.locator('.weapon-tile img').first().evaluate(img=>img.complete && img.naturalWidth > 0), 'Approved GAU-8/A image loads');
+  assert.ok(await page.locator('.rso-brand img').evaluate(img=>img.complete && img.naturalWidth > 0), 'Official RSO logo loads');
   await page.screenshot({path:'artifacts/ui/armament-dashboard-3440x1440.png',fullPage:true});
   await page.getByRole('button',{name:/Request Assistance/i}).first().click();
   await page.getByRole('dialog',{name:'REQUEST ASSISTANCE'}).waitFor();
