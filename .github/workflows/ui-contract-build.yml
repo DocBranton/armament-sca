@@ -25,4 +25,4 @@ jobs:
       - name: Typecheck and build
         run: npm run build
       - name: Confirm production bundle
-        run: test -f dist/index.html && test -d dist/assets
+        run: test -f client/dist/index.html && test -d client/dist/assets && test -f dist/server.js
