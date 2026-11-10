@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { GAU8_PARTS, KPIS, type Part } from './lib/data';
 import { WingmanPanel } from './components/Wingman';
+import { Hero } from './components/Hero';
+import type { StageId } from './lib/stages';
 
 function scoreColor(p: Part['priority']) {
   if (p === 'CRITICAL') return 'critical';
@@ -12,6 +14,8 @@ function scoreColor(p: Part['priority']) {
 export default function App() {
   const [weights, setWeights] = useState({ acq: 30, lead: 25, micap: 20, demand: 10, risk: 10, readiness: 5 });
   const [wingmanOpen, setWingmanOpen] = useState(false);
+  const [heroCollapsed, setHeroCollapsed] = useState(false);
+  const [activeStage, setActiveStage] = useState<StageId | null>('prioritize');
 
   const scored = [...GAU8_PARTS].map(p => ({
     ...p,
@@ -44,6 +48,13 @@ export default function App() {
         </header>
 
         <div className="content">
+          <Hero
+            collapsed={heroCollapsed}
+            onToggle={() => setHeroCollapsed((c) => !c)}
+            activeStage={activeStage}
+            onStage={setActiveStage}
+          />
+
           <div className="kpi-row">
             <div className="kpi"><div className="value">{KPIS.partsInScope.toLocaleString()}</div><div className="label">Armament Parts (In Scope)</div></div>
             <div className="kpi"><div className="value">{KPIS.amCandidates}</div><div className="label">AM Candidates (Qualified)</div></div>
@@ -54,7 +65,7 @@ export default function App() {
           </div>
 
           <div style={{ marginBottom: 16, background: '#12203a', padding: 12, borderRadius: 8 }}>
-            <strong>Scoring & Weights</strong> (Total = 100%)
+            <strong>Scoring & Weights</strong> (Total = 100%) — Active stage: {activeStage?.toUpperCase()}
             <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 13, flexWrap: 'wrap' }}>
               {Object.entries(weights).map(([k, v]) => (
                 <label key={k}>
