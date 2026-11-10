@@ -9,3 +9,20 @@
 .request-section{padding:20px 18px 18px;background:linear-gradient(180deg,#4a4030fa,#171719fa);border:1px solid #a68c57;border-radius:18px;box-shadow:0 16px 42px #000a}
 .request-section h2{font-size:17px;letter-spacing:1.2px;margin:0 0 12px;font-weight:800}.request-title{display:flex;align-items:center;justify-content:space-between}.request-title button{border:0;background:transparent;color:#f6ecd6;padding:3px}.request-section>p{margin:0 0 12px;font-size:14px;color:#dfd0b4}.request-types{display:flex;flex-direction:column;gap:8px}.request-types button{width:100%;border:1px solid #987436;border-radius:22px;background:#292723;color:#e8dcc4;font-size:13px;font-weight:600;text-align:left;padding:9px 14px}.request-types button.chosen{color:#1d160b;border:2px solid #fff3d2;background:linear-gradient(#fae0a6,#cd9840);padding:8px 13px}.request-find{background:linear-gradient(180deg,#3c392d,#101113);display:flex;flex-direction:column;gap:9px}.request-find h2{margin-bottom:6px}.request-find label{font-size:11px;font-weight:800;letter-spacing:1px;color:#b9914c;display:flex;flex-direction:column;gap:5px}.request-find input,.request-find select{width:100%;height:41px;border-radius:12px;padding:0 15px;background:#101213;border:1px solid #7c6231;color:#f5e4c8;font-size:14px}.request-find input::placeholder{color:#786e5d}.request-lookup,.request-submit{border:1px solid #d4ae5a;border-radius:10px;background:linear-gradient(#f5d68b,#d3a046);color:#11100d;font-weight:800;min-height:42px;display:flex;gap:8px;justify-content:center;align-items:center}.request-status{font-size:11px!important;color:#ffdc91!important;margin:2px 0!important;line-height:1.35}.request-footer{display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap}.request-submit{border-radius:22px;padding:8px 20px}.request-prepared{font-size:12px;padding:10px 12px;background:#1a2f27;border:1px solid #5d997b;border-radius:8px;display:flex;align-items:center;gap:6px;flex:1}.hero-cta{white-space:nowrap;font-size:11px}.request-backdrop button:focus-visible,.request-backdrop input:focus-visible,.request-backdrop select:focus-visible{outline:2px solid #fff;outline-offset:2px}
 @media(max-width:700px){.request-columns{grid-template-columns:1fr}.request-dialog{max-height:96vh}.request-section{padding:15px}.request-backdrop{padding:8px}}
+
+
+/* UMW request workflow extensions: match selection + deliverable package. */
+.request-matches{width:100%;display:flex;flex-direction:column;gap:6px;border-top:1px solid #8b733f;margin-top:8px;padding-top:10px}
+.request-matches h3,.request-deliverables h3{font-size:12px;letter-spacing:1px;color:#f1d49a;margin:0 0 7px}
+.request-matches button,.request-deliverable-grid button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;background:#161c20;border:1px solid #917344;border-radius:8px;padding:9px 12px;color:#f3e2c4;font-size:12px}
+.request-matches button span,.request-deliverable-grid small{font-size:11px;color:#c8b89d}
+.request-matches button.picked,.request-deliverable-grid button.picked{background:#493b22;border-color:#f5d58d;box-shadow:inset 0 0 0 1px #e6bb6f}
+.request-deliverables{margin-top:12px;padding:15px 19px}
+.request-deliverable-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.request-deliverable-grid button{min-height:76px}
+.request-part-summary{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #7a6241;font-size:12px}
+.request-part-summary small{color:#d6b978}.request-part-summary span{color:#f5e5cd}
+.request-details{display:flex;flex-direction:column;gap:6px;font-size:11px;color:#e2c187;margin-top:10px}
+.request-details textarea{width:100%;border-radius:8px;background:#101213;color:#fff2d5;border:1px solid #806234;padding:9px;resize:vertical}
+.request-lookup:disabled,.request-submit:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:800px){.request-deliverable-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
