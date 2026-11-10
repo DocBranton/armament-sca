@@ -64,7 +64,7 @@ export default function App(){
     <aside className="sidebar">
       <div className="af-logo"><img src="/brand/usaf-horizontal-white.png" alt="U.S. Air Force" onError={e=>{e.currentTarget.style.display='none'}}/><span>U.S. AIR FORCE</span></div>
       <div className="nav-groups">{NAV.map(g=><div key={g.group} className="nav-group"><div className="nav-label">{g.group}</div>{g.items.map(([label,Icon])=><button key={label} className={'nav-item '+(navActive===label?'active':'')} onClick={()=>{if(label==='SI Wingman')setWingmanOpen(true);else if(label==='Saved Views'){setControlsOpen(true);setPreset('AM Candidates (Default)')}else setNavActive(label)}}><Icon size={14}/><span>{label}</span></button>)}</div>)}</div>
-      <div className="rso-brand"><img src="/brand/rso-official.png" alt="Rapid Sustainment Office (RSO)" onError={e => { e.currentTarget.style.display = "none"; }} /></div>
+      <div className="rso-brand"><img src="/brand/rso-official.webp" alt="Rapid Sustainment Office (RSO)" onError={e => { e.currentTarget.style.display = "none"; }} /></div>
     </aside>
     <div className="main">
       <header className="topbar">
