@@ -1,16 +1,16 @@
 bundle:
   name: armament-sca
 
-variables:
-  wingman_endpoint:
-    description: Model Serving chat endpoint for the SI Wingman
-    default: databricks-llama-4-maverick
-  wingman_fallback_endpoint:
-    description: Fallback when the primary SI Wingman endpoint fails
-    default: databricks-meta-llama-3-3-70b-instruct
-
-include:
-  - resources/*.yml
+# Follows UMW's AppKit Databricks Apps bundle structure.
+# Attach approved Model Serving/other resources only after verifying permissions.
+resources:
+  apps:
+    app:
+      name: armament-sca
+      description: Armament Supply Chain & AM Candidate Analysis
+      source_code_path: ./
+      lifecycle:
+        started: true
 
 targets:
   default:
