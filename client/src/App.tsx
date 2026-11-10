@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Activity, ArrowRight, BarChart3, Bell, Boxes, ChevronDown, ChevronUp, CircleHelp, Crosshair, Download, Factory, Filter, FolderKanban, Gauge, Home, Layers, PackageSearch, RotateCcw, Save, Search, Settings, Shield, SlidersHorizontal, Sparkles, Target, Timer, Wrench } from 'lucide-react';
+import { Activity, ArrowRight, BarChart3, Bell, Boxes, ChevronDown, ChevronUp, Crosshair, Download, Factory, Filter, FolderKanban, Gauge, Home, Layers, PackageSearch, RotateCcw, Save, Search, Settings, Shield, SlidersHorizontal, Sparkles, Target, Timer, Wrench } from 'lucide-react';
 import { GAU8_PARTS, KPIS, type Part } from './lib/data';
 import { WingmanPanel } from './components/Wingman';
 import { Hero } from './components/Hero';
@@ -78,14 +78,14 @@ export default function App(){
           <div className="mission-heading"><h1>Armament Supply Chain &amp; AM Candidate Analysis</h1><p>Identify, prioritize, and assess armament parts for Advanced Manufacturing (AM) solutions</p></div>
         </div>
         <div className="kpi-row">
-          {[
-            [Settings, KPIS.partsInScope.toLocaleString(), 'Armament Parts (In Scope)', ''],
-            [Layers,String(KPIS.amCandidates),'AM Candidates (Qualified)',''],
-            [Timer, KPIS.avgLeadTime+' Days','Avg Lead Time','↑ +'+KPIS.leadTimeDelta+'%'],
-            [Boxes,'$'+KPIS.costAvoidance+'M','Cost Avoidance (Projected)',''],
-            [Crosshair,String(KPIS.weaponSystems),'Weapon Systems',''],
-            [BarChart3,'+'+KPIS.readinessImpact+'%','Readiness Impact (Projected)','']
-          ].map(([Icon,value,label,delta],i)=><div className="kpi" key={i}><Icon size={25}/><div className="kpi-copy"><strong className={i===5?'positive':''}>{value as string}</strong><span>{label as string} {delta&&<em>{delta as string}</em>}</span></div></div>)}
+          {([
+            {Icon:Settings,value:KPIS.partsInScope.toLocaleString(),label:'Armament Parts (In Scope)',delta:''},
+            {Icon:Layers,value:String(KPIS.amCandidates),label:'AM Candidates (Qualified)',delta:''},
+            {Icon:Timer,value:KPIS.avgLeadTime+' Days',label:'Avg Lead Time',delta:'↑ +'+KPIS.leadTimeDelta+'%'},
+            {Icon:Boxes,value:'$'+KPIS.costAvoidance+'M',label:'Cost Avoidance (Projected)',delta:''},
+            {Icon:Crosshair,value:String(KPIS.weaponSystems),label:'Weapon Systems',delta:''},
+            {Icon:BarChart3,value:'+'+KPIS.readinessImpact+'%',label:'Readiness Impact (Projected)',delta:''}
+          ]).map(({Icon,value,label,delta},i)=><div className="kpi" key={label}><Icon size={25}/><div className="kpi-copy"><strong className={i===5?'positive':''}>{value}</strong><span>{label} {delta&&<em>{delta}</em>}</span></div></div>)}
         </div>
         <Hero collapsed={heroCollapsed} onToggle={()=>setHeroCollapsed(c=>!c)} activeStage={activeStage} onStage={setActiveStage}/>
         <div className="workflow" aria-label="Armament AM workflow">{STAGES.map((s,i)=><button key={s.id} className={'workflow-step '+(s.id===activeStage?'selected':'')} onClick={()=>setActiveStage(s.id)}><span className="workflow-icon">{i===0?<PackageSearch/>:i===1?<Layers/>:i===2?<Crosshair/>:i===3?<Shield/>:i===4?<Factory/>:<Target/>}</span><span><strong>{s.num} {s.title}</strong><small>{s.caption}</small></span></button>)}</div>
