@@ -128,3 +128,7 @@ Remaining gates: upload exact official brand/photos, compare screenshots to `doc
 - GitHub Actions [run #42877759832](https://github.com/DocBranton/armament-sca/actions/runs/42877759832) passed: AppKit build, Request Assistance tests, exact A-10 asset decode and browser smoke. Screenshots were captured.
 - The screenshot acceptance workflow has been corrected to save **viewport-only 3440 × 1440 PNGs** rather than full-page captures that exceeded the requested height. Visual parity review remains human-gated.
 - The Small Arms card remains without an approved source photograph. **No merge/deploy yet.**
+
+## Third hero card: Universal Ammunition Loading (UAL) system
+
+The user chose the uploaded **Universal Ammunition Loading Systems (UAL)** photograph for the third slanted, cyan-edged card, replacing the earlier Small Arms & Light Weapons placeholder. The asset is `client/public/brand/ual.webp`, label `UAL System`, subtitle `Ammunition Loading`. Keep the existing card geometry, no new tile row or Hero redesign. Browser smoke validates the third image and UAL label. Note the supplied source is low resolution; inspect its crop at 3440×1440 and request a higher-resolution approved photo only if needed. Source rights/public-release status has not been independently established.
