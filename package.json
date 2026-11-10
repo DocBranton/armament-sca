@@ -12,7 +12,8 @@
     "build": "npm run build:server && npm run build:client",
     "check": "tsc -p tsconfig.server.json && tsc -p tsconfig.client.json",
     "sync": "appkit plugin sync --write --silent",
-    "typegen": "appkit generate-types"
+    "typegen": "appkit generate-types",
+    "test:request": "tsx --test client/src/lib/request-assistance.test.ts"
   },
   "dependencies": {
     "@databricks/appkit": "0.82.0",
