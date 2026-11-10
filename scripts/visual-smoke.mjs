@@ -35,6 +35,8 @@ try {
   assert.ok(tableBottom > 0.78 * 1440, 'At 3440×1440 the page should use most of the available vertical display, not render as tiny controls at the top');
   assert.ok(await page.locator('.weapon-tile img').first().evaluate(img=>img.complete && img.naturalWidth > 0), 'Approved GAU-8/A image loads');
   assert.ok(await page.locator('.weapon-tile img').nth(1).evaluate(img=>img.complete && img.naturalWidth > 0), 'M61A1 Vulcan image loads in second card');
+  assert.ok(await page.locator('.weapon-tile img').nth(2).evaluate(img=>img.complete && img.naturalWidth > 0), 'UAL image loads in third card');
+  assert.match(await page.locator('.weapon-tile').nth(2).innerText(), /UAL/, 'Third card identifies UAL');
   assert.ok(await page.locator('.rso-brand img').evaluate(img=>img.complete && img.naturalWidth > 0), 'Official RSO logo loads');
   assert.ok(await page.locator('.division-emblem').evaluate(img=>img.complete && img.naturalWidth > 0), 'Official Weapons Superiority Division crest loads');
   assert.ok(await page.locator('.af-logo img').evaluate(i=>i.complete && i.naturalWidth>0),'USAF logo loads');
