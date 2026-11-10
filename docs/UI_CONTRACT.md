@@ -93,3 +93,17 @@ Armament SCA now has a reusable, adapter-backed workflow:
 This is **behavioral alignment and reusable app-local extraction**, not a shared package consumed by both UMW and Armament. To achieve literal single-source reuse, move the extracted contract and UI into a versioned internal shared package/repository, migrate UMW to consume it, and then import it in Armament with permissions and functional/regression testing. Do not copy large, private UMW application code directly into the public Armament repository without a deliberate source-sharing/visibility decision.
 
 **Pending**: an authoritative UMW request API; role-based part catalog access; secure server-side validation; audit history; deployable package/version management; successful build and UI test/screenshot.
+
+## Automated browser acceptance (2026-11-10)
+
+GitHub Actions run [42854827616](https://github.com/DocBranton/armament-sca/actions/runs/42854827616) completed successfully with the Playwright acceptance check. It verifies:
+
+- Dashboard renders at **3440×1440** without uncaught client errors.
+- Six KPI cards, six workflow stages, and ten demonstration candidate rows.
+- KPI → hero → results vertical order.
+- Gold **Request Assistance** CTA opens the dialog, five assistance types exist, demo NSN search finds a match, Level II TDP is selectable, and the prepared draft clearly states **no request submitted**.
+- Artifact `armament-ui-acceptance-screenshots`: `armament-dashboard-3440x1440.png` and `armament-request-assistance-3440x1440.png`.
+
+This is a **functional smoke test and snapshot capture**, not a visual-diff approval. **Official image assets are still missing from the repo**, so the screenshots do not prove photographic or branding fidelity. The originals provided in conversation must be placed at approved paths before visual sign-off.
+
+Remaining gates: upload exact official brand/photos, compare screenshots to `docs/concept.png`, verify real UMW integration/part services, validate Databricks deployment, then obtain approval before merge.
