@@ -5,18 +5,26 @@
   "type": "module",
   "description": "Armament Supply Chain & AM Candidate Analysis — Databricks App",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "start": "vite preview --host 0.0.0.0 --port ${DATABRICKS_APP_PORT:-8000}",
-    "check": "tsc --noEmit"
+    "start": "NODE_ENV=production node --env-file-if-exists=./.env ./dist/server.js",
+    "dev": "NODE_ENV=development tsx watch --tsconfig ./tsconfig.server.json --env-file-if-exists=./.env ./server/server.ts",
+    "build:server": "tsc -p tsconfig.server.json && tsdown -c tsdown.server.config.ts",
+    "build:client": "tsc -p tsconfig.client.json && vite build --config client/vite.config.ts",
+    "build": "npm run build:server && npm run build:client",
+    "check": "tsc -p tsconfig.server.json && tsc -p tsconfig.client.json",
+    "sync": "appkit plugin sync --write --silent",
+    "typegen": "appkit generate-types"
   },
   "dependencies": {
+    "@databricks/appkit": "0.82.0",
+    "@databricks/appkit-ui": "0.82.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "lucide-react": "^0.546.0"
   },
   "devDependencies": {
+    "@types/node": "^24.6.0",
+    "tsdown": "^0.20.3",
+    "tsx": "^4.20.6",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.0.0",
