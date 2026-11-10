@@ -51,7 +51,7 @@ try {
     }
   });
   assert.ok(a10Asset, 'Approved 2200 × 190 A-10 Hero background loads and decodes');
-  await page.screenshot({path:'artifacts/ui/armament-dashboard-3440x1440.png',fullPage:true});
+  await page.screenshot({path:'artifacts/ui/armament-dashboard-3440x1440.png',fullPage:false});
   await page.getByRole('button',{name:/Request Assistance/i}).first().click();
   await page.getByRole('dialog',{name:'REQUEST ASSISTANCE'}).waitFor();
   assert.equal(await page.locator('.request-types button').count(),5);
@@ -62,7 +62,7 @@ try {
   await page.getByRole('button',{name:/Level II TDP/i}).click();
   await page.getByRole('button',{name:'Prepare Draft'}).click();
   await page.getByText(/No request was submitted/i).waitFor();
-  await page.screenshot({path:'artifacts/ui/armament-request-assistance-3440x1440.png',fullPage:true});
+  await page.screenshot({path:'artifacts/ui/armament-request-assistance-3440x1440.png',fullPage:false});
   assert.deepEqual(errors,[],'No client runtime exceptions');
   console.log('Visual acceptance smoke tests passed. Screenshots available in artifacts/ui.');
 } finally {
