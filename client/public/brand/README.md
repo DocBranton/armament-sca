@@ -2,6 +2,8 @@
 
 **Committed and available:**
 
+- `weapons-superiority-division.webp` — approved Weapons Superiority Division emblem supplied by the user, optimized for display beside the AFLCMC / EBUW mission title. Original artwork remains unchanged; maintain proportions and do not recolor.
+
 - `gau8.webp` — user-supplied official USAF GAU-8/A photo, optimized to 240px for the compact hero card. Photo: Senior Airman Joshua Strang, U.S. Air Force. Source: https://www.af.mil/News/Photos/igphoto/2000687343/ (public domain / cleared for release).
 - `rso-official.webp` — user-supplied official Rapid Sustainment Office logo, resized with transparent background preserved for the bottom-left sidebar, no added words.
 
