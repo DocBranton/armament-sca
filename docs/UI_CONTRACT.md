@@ -120,3 +120,11 @@ Remaining gates: upload exact official brand/photos, compare screenshots to `doc
 - **Run [42862682446](https://github.com/DocBranton/armament-sca/actions/runs/42862682446) did not stage any photo:** all three source endpoints returned **HTTP 403 Forbidden** from the hosted runner. This is an access restriction, not an image-clearance decision. The diagnostic `official-photo-candidates` artifact records the failures.
 - The user-owned private `DocBranton/idea-forge-II` repository already has `client/public/communities/a10.webp` with documented public-domain DVIDS origin (VIRIN 250715-F-AD704-1111), as well as `client/public/communities/CREDITS.md`. It is suitable for *review as a possible source*, but it has not been copied into this public repository and the private-repository boundary must be respected.
 - No unofficial aircraft or generic weapon imagery was substituted. The outstanding A-10, M61A1, Small Arms and USAF nav assets remain a visual acceptance **blocker**.
+
+## Approved A-10 Hero asset integrated (2026-11-10)
+
+- The user-approved sunset A-10 crop is committed at `client/public/brand/a10.webp` (2200 × 190 pixels), matching the pre-existing background reference in `client/src/index.css`.
+- No changes were made to the `Hero` component, typography, narrative, gold **Request Assistance** CTA, integrated three-card gallery, banner height, workflow, analysis controls, or results grid.
+- GitHub Actions [run #42877759832](https://github.com/DocBranton/armament-sca/actions/runs/42877759832) passed: AppKit build, Request Assistance tests, exact A-10 asset decode and browser smoke. Screenshots were captured.
+- The screenshot acceptance workflow has been corrected to save **viewport-only 3440 × 1440 PNGs** rather than full-page captures that exceeded the requested height. Visual parity review remains human-gated.
+- The Small Arms card remains without an approved source photograph. **No merge/deploy yet.**
