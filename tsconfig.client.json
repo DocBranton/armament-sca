@@ -4,11 +4,21 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.client.tsbuildinfo",
     "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "vite/client"
+    ],
     "jsx": "react-jsx",
     "noEmit": true
   },
-  "include": ["client/src"],
-  "exclude": ["client/src/**/*.test.ts"]
+  "include": [
+    "client/src"
+  ],
+  "exclude": [
+    "client/src/**/*.test.ts"
+  ]
 }
