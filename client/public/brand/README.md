@@ -2,6 +2,8 @@
 
 **Committed and available:**
 
+- `m61a1.webp` — user-supplied M61A1 Vulcan gun photograph with transparent background, optimized to 220px wide for the compact second hero card. No externally asserted attribution; supplied by the user for this prototype.
+
 - `weapons-superiority-division.webp` — approved Weapons Superiority Division emblem supplied by the user, optimized for display beside the AFLCMC / EBUW mission title. Original artwork remains unchanged; maintain proportions and do not recolor.
 
 - `gau8.webp` — user-supplied official USAF GAU-8/A photo, optimized to 240px for the compact hero card. Photo: Senior Airman Joshua Strang, U.S. Air Force. Source: https://www.af.mil/News/Photos/igphoto/2000687343/ (public domain / cleared for release).
@@ -10,7 +12,6 @@
 **Still required before full visual parity:**
 
 - `a10.webp` — approved A-10 photographic hero background. Do not substitute a made-up aircraft or screenshot of the original concept.
-- `m61a1.webp` — approved M61A1 Vulcan 20mm image for the second card.
 - `smallarms.webp` — approved small arms / light weapons image for the third card.
 - `usaf-horizontal-white.png` — approved USAF navigation logo.
 
