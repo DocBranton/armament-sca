@@ -11,11 +11,18 @@ function scoreColor(p: Part['priority']) {
   return 'medium';
 }
 
+const WEAPON_SYSTEMS = [
+  { id: 'gau8', name: 'GAU-8/A', caliber: '30mm', desc: 'A-10 Thunderbolt II', img: '/brand/gau8.webp' },
+  { id: 'gau9', name: 'GAU-9/A', caliber: '25mm', desc: 'AC-130 / other', img: '/brand/gau9.webp' },
+  { id: 'smallarms', name: 'Small Arms & Light Weapons', caliber: '', desc: 'Rifles, pistols, crew-served', img: '/brand/smallarms.webp' },
+];
+
 export default function App() {
   const [weights, setWeights] = useState({ acq: 30, lead: 25, micap: 20, demand: 10, risk: 10, readiness: 5 });
   const [wingmanOpen, setWingmanOpen] = useState(false);
   const [heroCollapsed, setHeroCollapsed] = useState(false);
   const [activeStage, setActiveStage] = useState<StageId | null>('prioritize');
+  const [system, setSystem] = useState('gau8');
 
   const scored = [...GAU8_PARTS].map(p => ({
     ...p,
@@ -25,7 +32,15 @@ export default function App() {
   return (
     <div className="app">
       <aside className="sidebar">
-        <div className="logo">U.S. AIR FORCE</div>
+        <div className="logo" style={{ padding: '8px 16px 16px' }}>
+          <img
+            src="/brand/usaf-horizontal-white.png"
+            alt="U.S. Air Force"
+            style={{ width: '100%', maxWidth: 180, height: 'auto' }}
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          />
+          <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 4, letterSpacing: 0.5 }}>GLOBAL MISSION WORKBENCH</div>
+        </div>
         <nav>
           <a href="#">Mission</a>
           <a href="#" className="active">Armament</a>
@@ -55,6 +70,34 @@ export default function App() {
             onStage={setActiveStage}
           />
 
+          {!heroCollapsed && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 16 }}>
+              {WEAPON_SYSTEMS.map((ws) => (
+                <button
+                  key={ws.id}
+                  onClick={() => setSystem(ws.id)}
+                  style={{
+                    background: system === ws.id ? '#1a3050' : '#12203a',
+                    border: system === ws.id ? '1px solid var(--cyan)' : '1px solid #1a2a44',
+                    borderRadius: 8,
+                    padding: 0,
+                    overflow: 'hidden',
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    color: 'inherit',
+                  }}
+                >
+                  <div style={{ height: 90, background: `url(${ws.img}) center / cover`, backgroundColor: '#0d1b2e' }} />
+                  <div style={{ padding: '10px 12px' }}>
+                    <strong>{ws.name}</strong>
+                    {ws.caliber && <span style={{ color: 'var(--cyan)', marginLeft: 6 }}>{ws.caliber}</span>}
+                    <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>{ws.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className="kpi-row">
             <div className="kpi"><div className="value">{KPIS.partsInScope.toLocaleString()}</div><div className="label">Armament Parts (In Scope)</div></div>
             <div className="kpi"><div className="value">{KPIS.amCandidates}</div><div className="label">AM Candidates (Qualified)</div></div>
@@ -65,7 +108,7 @@ export default function App() {
           </div>
 
           <div style={{ marginBottom: 16, background: '#12203a', padding: 12, borderRadius: 8 }}>
-            <strong>Scoring & Weights</strong> (Total = 100%) — Active stage: {activeStage?.toUpperCase()}
+            <strong>Scoring & Weights</strong> (Total = 100%) — System: {WEAPON_SYSTEMS.find(w => w.id === system)?.name} — Stage: {activeStage?.toUpperCase()}
             <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 13, flexWrap: 'wrap' }}>
               {Object.entries(weights).map(([k, v]) => (
                 <label key={k}>
