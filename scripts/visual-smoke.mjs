@@ -38,6 +38,19 @@ try {
   assert.ok(await page.locator('.rso-brand img').evaluate(img=>img.complete && img.naturalWidth > 0), 'Official RSO logo loads');
   assert.ok(await page.locator('.division-emblem').evaluate(img=>img.complete && img.naturalWidth > 0), 'Official Weapons Superiority Division crest loads');
   assert.ok(await page.locator('.af-logo img').evaluate(i=>i.complete && i.naturalWidth>0),'USAF logo loads');
+  const a10Asset = await page.evaluate(async () => {
+    const response = await fetch('/brand/a10.webp');
+    if (!response.ok) return false;
+    const image = new Image();
+    image.src = URL.createObjectURL(await response.blob());
+    try {
+      await image.decode();
+      return image.naturalWidth === 2200 && image.naturalHeight === 190;
+    } finally {
+      URL.revokeObjectURL(image.src);
+    }
+  });
+  assert.ok(a10Asset, 'Approved 2200 × 190 A-10 Hero background loads and decodes');
   await page.screenshot({path:'artifacts/ui/armament-dashboard-3440x1440.png',fullPage:true});
   await page.getByRole('button',{name:/Request Assistance/i}).first().click();
   await page.getByRole('dialog',{name:'REQUEST ASSISTANCE'}).waitFor();
