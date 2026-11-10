@@ -76,7 +76,7 @@ export default function App(){
       </header>
       <main className="content">
         <div className="mission-banner">
-          <div className="organization"><Crosshair size={38}/><div><strong>AFLCMC / EBUW</strong><span>Weapons Superiority Division</span><small>Aircraft Guns, Small Arms, and Light Weapons</small></div></div>
+          <div className="organization"><img className="division-emblem" src="/brand/weapons-superiority-division.webp" alt="Weapons Superiority Division emblem"/><div><strong>AFLCMC / EBUW</strong><span>Weapons Superiority Division</span><small>Aircraft Guns, Small Arms, and Light Weapons</small></div></div>
           <div className="mission-heading"><h1>Armament Supply Chain &amp; AM Candidate Analysis</h1><p>Identify, prioritize, and assess armament parts for Advanced Manufacturing (AM) solutions</p></div>
         </div>
         <div className="kpi-row">
