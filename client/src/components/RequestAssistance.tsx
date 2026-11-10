@@ -33,7 +33,7 @@ export function RequestAssistance({
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
+  }, []);
 
   const updateSearch = (field: keyof PartSearch, value: string) => {
     setSearch(prev => ({ ...prev, [field]: value }));
