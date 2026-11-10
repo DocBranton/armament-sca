@@ -1,0 +1,4 @@
+command: ["npm", "run", "start"]
+env:
+  - name: WINGMAN_ENDPOINT
+    valueFrom: wingman

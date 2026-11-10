@@ -1,0 +1,25 @@
+{
+  "name": "armament-sca",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Armament Supply Chain & AM Candidate Analysis — Databricks App",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "NODE_ENV=production node --env-file-if-exists=./.env ./dist/server.js"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "lucide-react": "^0.546.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.0.0"
+  }
+}
