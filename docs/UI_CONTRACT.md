@@ -79,3 +79,17 @@ Armament SCA now implements the **first runtime foundation slice**:
 **NOT YET VERIFIED:** Successful npm build/CI execution, Databricks deployment, compatible AppKit UI component reuse, identity/capability services, any authoritative backend request or parts lookup, and screenshot parity. The local execution environment cannot reach GitHub/npm to perform dependency installation. Treat this as a code-level implementation, not a finished or tested AppKit migration.
 
 **Important:** AppKit server runtime is now integrated, but `@databricks/appkit-ui` package presence alone does *not* prove its components have been adopted. UMW's Request Assistance is currently implemented inline in `client/src/components/workbench.tsx`, not as a separately exported reusable package. An extraction/shared module is a subsequent task and should be independently validated to avoid breaking UMW or drifting the Armament visual contract.
+
+## Request Assistance extraction milestone (2026-11-10)
+
+Comparison baseline: `DocBranton/umw` `client/src/components/workbench.tsx` on main: UMW's `Hero` contains five request types, conditional part search, multiple selectable matches, selected part details, and four delivery-package choices. It is **not a separately exported UMW component**.
+
+Armament SCA now has a reusable, adapter-backed workflow:
+- `client/src/lib/request-assistance.ts` defines request types, deliverables, typed part-search inputs, selected-match model, and a replaceable `AssistanceAdapter`.
+- `client/src/components/RequestAssistance.tsx` uses those contracts for choosing an assistance type; a conditional aircraft/NSN/part-number/description search; explicit part match selection; and deliverable package selection (CAD, Level II TDP, Level III TDP, Custom).
+- `client/src/lib/request-assistance.test.ts` tests UMW-aligned categories and search normalization/filtering; `npm run test:request` is included in CI.
+- The demo adapter only returns GAU-8/A samples. Their part numbers are unknown and intentionally set to `null`. It neither invents part numbers nor submits requests. The dialog says a draft was prepared locally, never submitted.
+
+This is **behavioral alignment and reusable app-local extraction**, not a shared package consumed by both UMW and Armament. To achieve literal single-source reuse, move the extracted contract and UI into a versioned internal shared package/repository, migrate UMW to consume it, and then import it in Armament with permissions and functional/regression testing. Do not copy large, private UMW application code directly into the public Armament repository without a deliberate source-sharing/visibility decision.
+
+**Pending**: an authoritative UMW request API; role-based part catalog access; secure server-side validation; audit history; deployable package/version management; successful build and UI test/screenshot.
