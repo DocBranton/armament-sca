@@ -2,6 +2,8 @@
 
 **Committed and available:**
 
+- `usaf-official.webp` — compact copy of the USAF logo provided by the user. Original silver-on-white artwork is preserved; the sidebar applies a CSS blend for display on navy.
+
 - `m61a1.webp` — user-supplied M61A1 Vulcan gun photograph with transparent background, optimized to 220px wide for the compact second hero card. No externally asserted attribution; supplied by the user for this prototype.
 
 - `weapons-superiority-division.webp` — approved Weapons Superiority Division emblem supplied by the user, optimized for display beside the AFLCMC / EBUW mission title. Original artwork remains unchanged; maintain proportions and do not recolor.
@@ -13,7 +15,6 @@
 
 - `a10.webp` — approved A-10 photographic hero background. Do not substitute a made-up aircraft or screenshot of the original concept.
 - `smallarms.webp` — approved small arms / light weapons image for the third card.
-- `usaf-horizontal-white.png` — approved USAF navigation logo.
 
 The image references should be self-contained in this directory for Databricks environments without external image access. This is a public repository: only place assets here if cleared for public release.
 
