@@ -37,6 +37,7 @@ try {
   assert.ok(await page.locator('.weapon-tile img').nth(1).evaluate(img=>img.complete && img.naturalWidth > 0), 'M61A1 Vulcan image loads in second card');
   assert.ok(await page.locator('.rso-brand img').evaluate(img=>img.complete && img.naturalWidth > 0), 'Official RSO logo loads');
   assert.ok(await page.locator('.division-emblem').evaluate(img=>img.complete && img.naturalWidth > 0), 'Official Weapons Superiority Division crest loads');
+  assert.ok(await page.locator('.af-logo img').evaluate(i=>i.complete && i.naturalWidth>0),'USAF logo loads');
   await page.screenshot({path:'artifacts/ui/armament-dashboard-3440x1440.png',fullPage:true});
   await page.getByRole('button',{name:/Request Assistance/i}).first().click();
   await page.getByRole('dialog',{name:'REQUEST ASSISTANCE'}).waitFor();
