@@ -107,3 +107,8 @@ GitHub Actions run [42854827616](https://github.com/DocBranton/armament-sca/acti
 This is a **functional smoke test and snapshot capture**, not a visual-diff approval. **Official image assets are still missing from the repo**, so the screenshots do not prove photographic or branding fidelity. The originals provided in conversation must be placed at approved paths before visual sign-off.
 
 Remaining gates: upload exact official brand/photos, compare screenshots to `docs/concept.png`, verify real UMW integration/part services, validate Databricks deployment, then obtain approval before merge.
+
+## Approved mission header crest (2026-11-10)
+- The user-supplied Weapons Superiority Division emblem is installed as `client/public/brand/weapons-superiority-division.webp` and rendered alongside `AFLCMC / EBUW` and `Weapons Superiority Division` in the mission-identity banner.
+- The design contract is **keep the official artwork intact**, maintain aspect ratio, 48×48 CSS pixel footprint before ultrawide zoom, no recoloring or additional badges. This replaces the generic crosshair in the organization identity block only; navigation, hero, workflow, controls, and results hierarchy remain unchanged.
+- CI smoke test checks the crest loads successfully. Hero imagery is still incomplete pending approved A-10, M61A1 and Small Arms photographs; success of the crest check is not full visual acceptance.
