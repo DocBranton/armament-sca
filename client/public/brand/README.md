@@ -2,6 +2,8 @@
 
 **Committed and available:**
 
+- `ual.webp` — user-supplied Universal Ammunition Loading (UAL) system photo, compact WebP for third hero card. Replaces proposed Small Arms imagery; rights/public-release status is not independently verified.
+
 - `a10.webp` — approved user-supplied A-10 sunset crop, 2200 × 190 pixels, the existing compact Hero CSS background. The original Hero component, text and integrated weapon-card layout were not modified.
 
 - `usaf-official.webp` — compact copy of the USAF logo provided by the user. Original silver-on-white artwork is preserved; the sidebar applies a CSS blend for display on navy.
@@ -15,7 +17,6 @@
 
 **Still required before full visual parity:**
 
-- `smallarms.webp` — approved small arms / light weapons image for the third card.
 
 The image references should be self-contained in this directory for Databricks environments without external image access. This is a public repository: only place assets here if cleared for public release.
 
