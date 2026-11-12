@@ -52,3 +52,13 @@ databricks apps get armament-sca
 The November 12 production server smoke initially failed on GitHub Actions run 43231549836 because `@databricks/appkit` requires Databricks authentication and the ordinary CI runner has no `DATABRICKS_HOST` or service-principal identity. Build, typecheck, and bundled output checks passed. This failure **does not demonstrate that AppKit code is broken**, nor does it prove production startup works.
 
 The production server smoke was moved from unauthenticated `ui-contract-build.yml` into the manual, read-only `databricks-dev-preflight.yml`, after the OIDC identity check, npm install, and build. It is **pending a confirmed DEV host and authorized federated identity**. In the meantime, ordinary CI checks remain build + Request Assistance tests + Playwright visual smoke, and their success must not be reported as an authenticated Databricks startup check.
+
+## User-confirmed Armament SCA DEV app endpoint (November 12, 2026)
+
+- **App endpoint:** https://armament-sca-7474654475322205.aws.databricksapps.com
+- **App name:** `armament-sca`
+- **Workspace ID embedded in the app endpoint:** `7474654475322205`
+- The app endpoint is a runtime URL, **not** the Databricks workspace URL used by `databricks bundle validate` or `DATABRICKS_HOST`. Do not set `workspace_host` to the app endpoint.
+- The read-only `databricks-dev-preflight.yml` now asserts that `databricks apps get armament-sca` returns **exactly** the confirmed app name and URL, preventing accidental deployment into another workspace with a same-named app.
+- The matching workspace UI/CLI host (usually `https://dbc-....cloud.databricks.com`) and authorized authentication still need verification. The workspace ID also appears in previous Super CAD deployment context, but **this alone does not establish the host**.
+- No Databricks deployment has been initiated and app status has not been read from an authenticated workspace.
