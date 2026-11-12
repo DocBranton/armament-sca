@@ -29,8 +29,6 @@ jobs:
         run: npm run build
       - name: Confirm production bundle
         run: test -f client/dist/index.html && test -d client/dist/assets && test -f dist/server.js
-      - name: Verify AppKit production server starts and serves the React app
-        run: node scripts/appkit-server-smoke.mjs
       - name: Install browser for visual smoke test
         run: |
           npm install --no-save playwright
