@@ -31,6 +31,15 @@ jobs:
       - uses: databricks/setup-cli@main
       - name: Check authentication and workspace
         run: databricks current-user me
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build AppKit production artifacts
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+      - name: Verify authenticated AppKit server starts
+        run: node scripts/appkit-server-smoke.mjs
       - name: Validate DEV bundle (no deployment)
         run: databricks bundle validate -t dev --var="workspace_host=$DATABRICKS_HOST"
       - name: Inspect target application (read-only)
