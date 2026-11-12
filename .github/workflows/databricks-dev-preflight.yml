@@ -52,9 +52,15 @@ jobs:
           }
           python3 - <<'PY'
           import json
+          from urllib.parse import urlsplit
+          expected = "https://armament-sca-7474654475322205.aws.databricksapps.com"
           with open("app-current.json") as f:
               app = json.load(f)
-          print("App name:", app.get("name"))
+          actual = (app.get("url") or "").rstrip("/")
+          assert app.get("name") == "armament-sca", "Unexpected Databricks app identity"
+          assert actual == expected, f"App URL mismatch: expected {expected}, got {actual!r}"
+          print("Verified app name:", app["name"])
+          print("Verified app URL:", actual)
           print("App status:", (app.get("app_status") or {}).get("state", "unknown"))
           print("Compute status:", (app.get("compute_status") or {}).get("state", "unknown"))
           PY
