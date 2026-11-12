@@ -1,0 +1,29 @@
+name: Stage official imagery for review
+on:
+  workflow_dispatch:
+  push:
+    branches: [ui/concept-contract-restoration]
+    paths:
+      - 'docs/official-image-sources.json'
+      - 'scripts/stage-official-imagery.py'
+      - '.github/workflows/stage-official-imagery.yml'
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Stage public-domain photo candidates (no repository writes)
+        run: python scripts/stage-official-imagery.py
+      - name: Save images and attribution log for visual review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-photo-candidates
+          path: artifacts/official-photo-candidates/
+          if-no-files-found: warn

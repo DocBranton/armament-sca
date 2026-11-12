@@ -1,4 +1,5 @@
 command: ["npm", "run", "start"]
-env:
-  - name: WINGMAN_ENDPOINT
-    valueFrom: wingman
+
+# AppKit serves the client and API from dist/server.js.
+# Bind only approved Databricks resources when configured in databricks.yml.
+# WINGMAN_ENDPOINT is not bound until a Model Serving resource is authorized.

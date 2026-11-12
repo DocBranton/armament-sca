@@ -1,0 +1,45 @@
+name: UI contract build validation
+on:
+  pull_request:
+    paths:
+      - 'client/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'vite.config.ts'
+      - '.github/workflows/**'
+  push:
+    branches:
+      - 'ui/concept-contract-restoration'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Request Assistance contract tests
+        run: npm run test:request
+      - name: Typecheck and build
+        run: npm run build
+      - name: Confirm production bundle
+        run: test -f client/dist/index.html && test -d client/dist/assets && test -f dist/server.js
+      - name: Install browser for visual smoke test
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Verify concept layout and Request Assistance
+        run: node scripts/visual-smoke.mjs
+      - name: Save widescreen screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: armament-ui-acceptance-screenshots
+          path: artifacts/ui/
+          if-no-files-found: ignore
+

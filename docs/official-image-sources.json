@@ -1,0 +1,40 @@
+{
+  "purpose": "Official imagery candidates for Armament SCA UI visual acceptance. Public release attribution applies; confirm image content before repository inclusion.",
+  "sources": [
+    {
+      "key": "a10",
+      "output": "a10.webp",
+      "role": "A-10 full-width background",
+      "page": "https://www.afcent.af.mil/News/Photos/igphoto/2000363838/",
+      "source": "https://media.defense.gov/2010/May/13/2000363838/-1/-1/0/100322-F-9503H-008.JPG",
+      "credit": "U.S. Air Force photo by Senior Airman Nancy Hooks",
+      "note": "A-10 Thunderbolt II preparing for takeoff; credited and cleared for release on official photo page"
+    },
+    {
+      "key": "m61a1",
+      "output": "m61a1.webp",
+      "role": "M61A1 Vulcan 20mm card",
+      "page": "https://www.nationalmuseum.af.mil/Upcoming/Photos/igphoto/2000884938/",
+      "source": null,
+      "credit": "U.S. Air Force / National Museum of the USAF",
+      "note": "M61A1 Vulcan cannon museum photograph; image download endpoint to be extracted from official source page"
+    },
+    {
+      "key": "smallarms",
+      "output": "smallarms.webp",
+      "role": "Small Arms & Light Weapons card",
+      "page": "https://www.af.mil/News/Photos/igphoto/2003919432/",
+      "source": null,
+      "credit": "U.S. Air Force photo by Melissa Hydrick",
+      "note": "M4 carbine training, April 2026; official public domain photo"
+    }
+  ],
+  "release_requirements": [
+    "Credit photographer in docs",
+    "Inspect image is the intended platform or weapon",
+    "No AI generated substitute",
+    "Preserve UI composition",
+    "Confirm public-release status for all new source files"
+  ],
+  "status": "Sourcing candidates, not approved photographic assets or completed integration"
+}

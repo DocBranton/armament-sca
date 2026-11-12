@@ -1,0 +1,89 @@
+name: Armament SCA DEV branch deployment
+# One-time branch kickoff; future deployments are manual by workflow_dispatch.
+on:
+  push:
+    branches: [ui/concept-contract-restoration]
+    paths: [.github/workflows/armament-dev-deploy.yml]
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Verify identity and deploy existing Armament SCA DEV app
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: armament-sca-dev
+      cancel-in-progress: false
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+      DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+      EXPECTED_APP_URL: https://armament-sca-7474654475322205.aws.databricksapps.com
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard workspace configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$DATABRICKS_HOST" =~ ^https://[A-Za-z0-9.-]+\.cloud\.databricks\.com/?$ ]]; then
+            echo "::error::Set an approved Databricks workspace DATABRICKS_HOST in the dev GitHub environment. Do not use the apps runtime URL."
+            exit 1
+          fi
+          if [[ -z "$DATABRICKS_CLIENT_ID" ]]; then
+            echo "::error::Set DATABRICKS_CLIENT_ID for an authorized federated service principal in the dev environment."
+            exit 1
+          fi
+          echo "Configured target: $DATABRICKS_HOST"
+      - uses: databricks/setup-cli@main
+      - name: Authenticate via Databricks GitHub OIDC
+        run: databricks current-user me
+      - name: Verify exact pre-existing app identity before ANY writes
+        shell: bash
+        run: |
+          set -euo pipefail
+          databricks apps get armament-sca --output json > app-current.json
+          python3 - <<'PY'
+          import os, json
+          app=json.load(open('app-current.json'))
+          expected=os.environ['EXPECTED_APP_URL'].rstrip('/')
+          actual=(app.get('url') or '').rstrip('/')
+          if app.get('name') != 'armament-sca' or actual != expected:
+              raise SystemExit(f"Wrong Databricks app target. Expected armament-sca at {expected}; found {app.get('name')}: {actual}")
+          print(f"Verified existing target: {actual}")
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and test source at this feature-branch commit
+        run: |
+          npm install --no-audit --no-fund
+          npm run test:request
+          npm run build
+      - name: Test actual AppKit server with federated auth
+        run: node scripts/appkit-server-smoke.mjs
+      - name: Validate bundle against approved workspace
+        run: databricks bundle validate -t dev --var="workspace_host=$DATABRICKS_HOST"
+      - name: Deploy DEV bundle from THIS branch (no merge)
+        run: databricks bundle deploy -t dev --var="workspace_host=$DATABRICKS_HOST"
+      - name: Start updated Databricks app
+        run: databricks bundle run app -t dev --var="workspace_host=$DATABRICKS_HOST"
+      - name: Verify deployed app identity and health state
+        shell: bash
+        run: |
+          set -euo pipefail
+          databricks apps get armament-sca --output json > app-deployed.json
+          python3 - <<'PY'
+          import json, os
+          app=json.load(open('app-deployed.json'))
+          actual=(app.get('url') or '').rstrip('/')
+          expected=os.environ['EXPECTED_APP_URL'].rstrip('/')
+          if actual != expected:
+              raise SystemExit(f"Unexpected app URL after deployment: {actual}")
+          print("App URL:", actual)
+          print("App status:", (app.get('app_status') or {}).get('state'))
+          print("Compute status:", (app.get('compute_status') or {}).get('state'))
+          PY
+      - name: Record commit deployed
+        run: echo "Deployed source commit $GITHUB_SHA from $GITHUB_REF_NAME"
