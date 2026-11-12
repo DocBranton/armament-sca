@@ -3,7 +3,7 @@
 This is a **separate** Databricks Declarative Automation Bundle that creates a native AI/BI Dashboard without changing the deployed `armament-sca` App.
 
 ## Contents
-- `dashboards/armament_micap_poc.lvdash.json`: 1-page dashboard + global filters with inline synthetic SQL data.
+- `dashboard-bundle/dashboards/armament_micap_poc.lvdash.json`: 1-page dashboard + global filters with inline synthetic SQL data.
 - `dashboard-bundle/databricks.yml`: dedicated dashboard bundle manifest, so the existing root App bundle is left untouched.
 
 ## Scope and limitations
