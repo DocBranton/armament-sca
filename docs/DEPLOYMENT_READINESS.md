@@ -29,3 +29,20 @@ Review date: 2026-11-10
 - If startup, auth, or visual contract fails, roll back to the last known deployed version.
 
 **Current status: CI green, ready for final human review; Databricks workspace/deployment not yet verified.** No merge or deployment has occurred.
+
+## DEV staging hardening — November 12, 2026
+
+- Removed the previously hardcoded commercial Databricks workspace address from `databricks.yml`. The explicit `dev` target now requires `workspace_host` to be supplied at validation/deployment time, preventing accidental deployment into the Super CAD workspace.
+- Added manual **read-only preflight** GitHub Actions workflow `.github/workflows/databricks-dev-preflight.yml`. It accepts the approved DEV workspace URL, authenticates using the approved `dev` GitHub environment's `DATABRICKS_CLIENT_ID` and OIDC federation, validates the Databricks bundle, and verifies that `armament-sca` exists and is accessible. It **never deploys**. Note: GitHub manual `workflow_dispatch` normally requires the workflow to exist on the default branch before the Actions UI can dispatch it; alternate authorized execution from the branch may be needed until merged.
+- Added `scripts/appkit-server-smoke.mjs` to CI so a real built `npm run start` server must return the React homepage on port 8123. This complements the existing Playwright/Vite visual acceptance; it does **not** prove actual Databricks runtime startup.
+- Databricks documentation describes AppKit deployments performing a runtime build; final Databricks App deployment must still confirm the build actually happens and produces `dist/server.js` and `client/dist/index.html`, since these directories are excluded from Git.
+- Only proceed with actual DEV `bundle deploy` / `bundle run app` after verifying destination workspace, app identity, service-principal scope, readiness checks, and explicit authorized deployment approval. If a target does not have `armament-sca`, **stop** rather than creating one in an unspecified workspace.
+- Production remains out of scope. No Databricks credential or authenticated workspace is connected to the assistant's available tools; no real Databricks operation has occurred.
+
+Example only, after approved host and Databricks CLI auth:
+```bash
+databricks bundle validate -t dev --var="workspace_host=$DATABRICKS_HOST"
+databricks apps get armament-sca
+# Deliberately NOT executed: databricks bundle deploy -t dev --var="workspace_host=$DATABRICKS_HOST"
+# Deliberately NOT executed: databricks bundle run app -t dev --var="workspace_host=$DATABRICKS_HOST"
+```
