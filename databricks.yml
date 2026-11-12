@@ -21,6 +21,5 @@ variables:
 targets:
   dev:
     default: true
-    mode: development
     workspace:
       host: ${var.workspace_host}
