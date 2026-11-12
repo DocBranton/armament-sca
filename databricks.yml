@@ -12,8 +12,15 @@ resources:
       lifecycle:
         started: true
 
+# Target host is deliberately supplied at validation/deployment time. Never
+# reuse another application's workspace address without explicit confirmation.
+variables:
+  workspace_host:
+    description: Approved Armament SCA development workspace URL
+
 targets:
-  default:
+  dev:
     default: true
+    mode: development
     workspace:
-      host: https://dbc-045433f3-7964.cloud.databricks.com
+      host: ${var.workspace_host}
