@@ -1,0 +1,53 @@
+name: Databricks DEV preflight (read-only)
+on:
+  workflow_dispatch:
+    inputs:
+      workspace_host:
+        description: 'Approved Armament SCA DEV workspace URL (https://...)'
+        required: true
+        type: string
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    environment: dev
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_HOST: ${{ inputs.workspace_host }}
+      DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check explicit workspace and identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$DATABRICKS_HOST" =~ ^https://[a-zA-Z0-9.-]+$ ]] || { echo 'Specify a valid HTTPS Databricks workspace hostname.'; exit 1; }
+          [[ -n "$DATABRICKS_CLIENT_ID" ]] || { echo 'Configure a federated Databricks service principal via DEV environment variable DATABRICKS_CLIENT_ID.'; exit 1; }
+          echo "Target workspace: $DATABRICKS_HOST"
+          echo "App resource key: app"
+          echo "Requested app name: armament-sca"
+      - uses: databricks/setup-cli@main
+      - name: Check authentication and workspace
+        run: databricks current-user me
+      - name: Validate DEV bundle (no deployment)
+        run: databricks bundle validate -t dev --var="workspace_host=$DATABRICKS_HOST"
+      - name: Inspect target application (read-only)
+        shell: bash
+        run: |
+          set -euo pipefail
+          databricks apps get armament-sca --output json > app-current.json || {
+            echo "Target app 'armament-sca' not found or not accessible. No deployment attempted."
+            exit 1
+          }
+          python3 - <<'PY'
+          import json
+          with open("app-current.json") as f:
+              app = json.load(f)
+          print("App name:", app.get("name"))
+          print("App status:", (app.get("app_status") or {}).get("state", "unknown"))
+          print("Compute status:", (app.get("compute_status") or {}).get("state", "unknown"))
+          PY
+      - name: Preflight result
+        run: echo 'Bundle and existing application were verified. Deployment remains a separate, manually authorized operation.'
