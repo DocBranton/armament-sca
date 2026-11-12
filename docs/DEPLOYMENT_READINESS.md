@@ -46,3 +46,9 @@ databricks apps get armament-sca
 # Deliberately NOT executed: databricks bundle deploy -t dev --var="workspace_host=$DATABRICKS_HOST"
 # Deliberately NOT executed: databricks bundle run app -t dev --var="workspace_host=$DATABRICKS_HOST"
 ```
+
+### Authenticated AppKit startup clarification
+
+The November 12 production server smoke initially failed on GitHub Actions run 43231549836 because `@databricks/appkit` requires Databricks authentication and the ordinary CI runner has no `DATABRICKS_HOST` or service-principal identity. Build, typecheck, and bundled output checks passed. This failure **does not demonstrate that AppKit code is broken**, nor does it prove production startup works.
+
+The production server smoke was moved from unauthenticated `ui-contract-build.yml` into the manual, read-only `databricks-dev-preflight.yml`, after the OIDC identity check, npm install, and build. It is **pending a confirmed DEV host and authorized federated identity**. In the meantime, ordinary CI checks remain build + Request Assistance tests + Playwright visual smoke, and their success must not be reported as an authenticated Databricks startup check.
